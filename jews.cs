@@ -10,6 +10,7 @@ using DSharpPlus;
 using DSharpPlus.Entities;
 using Harmony;
 using MelonLoader;
+using NekroExtensions;
 using Newtonsoft.Json;
 using VRC.Core;
 
@@ -22,6 +23,7 @@ namespace AvatarLoger
         private static string _avatarIDs = "";
         private static readonly Queue<ApiAvatar> AvatarToPost = new Queue<ApiAvatar>();
         private static readonly HttpClient WebHookClient = new HttpClient();
+        private static NekroExtensions.BoolPacking WebHookBoolBundle = new BoolPacking();
 
         private static readonly DiscordColor PrivateColor = new DiscordColor("#FF0000");
         private static readonly DiscordColor PublicColor = new DiscordColor("#00FF00");
@@ -69,12 +71,17 @@ namespace AvatarLoger
                 Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("AvatarLog\\Config.json"));
             }
 
+            if (!string.IsNullOrEmpty(Config.PrivateWebhook.First()) &&
+                Config.PrivateWebhook.First().StartsWith("https://")) WebHookBoolBundle[0] = true;
+            if (!string.IsNullOrEmpty(Config.PublicWebhook.First()) &&
+                Config.PublicWebhook.First().StartsWith("https://")) WebHookBoolBundle[1] = true;
+
 
             foreach (var methodInfo in typeof(AssetBundleDownloadManager).GetMethods().Where(p =>
                 p.GetParameters().Length == 1 && p.GetParameters().First().ParameterType == typeof(ApiAvatar) &&
                 p.ReturnType == typeof(void)))
             {
-                Harmony.Patch(methodInfo, GetPatch("ApiAvatarLoadPatch"));
+                Harmony.Patch(methodInfo, GetPatch("ApiAvatarDownloadPatch"));
             }
 
             new Thread(DoCheck).Start();
@@ -101,7 +108,7 @@ namespace AvatarLoger
                     sb.AppendLine(Environment.NewLine);
                     File.AppendAllText(PublicAvatarFile, sb.ToString());
                     sb.Clear();
-                    if (!string.IsNullOrEmpty(Config.PublicWebhook.First()) && CanPost(__0.authorId))
+                    if (WebHookBoolBundle[1] && CanPost(__0.authorId))
                         AvatarToPost.Enqueue(__0);
                 }
                 else
@@ -121,7 +128,7 @@ namespace AvatarLoger
                     sb.AppendLine(Environment.NewLine);
                     sb.Clear();
                     File.AppendAllText(PrivateAvatarFile, sb.ToString());
-                    if (!string.IsNullOrEmpty(Config.PrivateWebhook.First()) && CanPost(__0.authorId))
+                    if (WebHookBoolBundle[0] && CanPost(__0.authorId))
                         AvatarToPost.Enqueue(__0);
                 }
             }
