@@ -92,6 +92,7 @@ namespace AvatarLoger
             new Thread(DoCheck).Start();
         }
 
+        // ReSharper disable once UnusedMember.Local
         private static bool ApiAvatarDownloadPatch(ApiAvatar __0)
         {
             if (!_avatarIDs.Contains(__0.id))
@@ -222,6 +223,7 @@ namespace AvatarLoger
 
                 Thread.Sleep(1000);
             }
+            // ReSharper disable once FunctionNeverReturns
         }
     }
 }
