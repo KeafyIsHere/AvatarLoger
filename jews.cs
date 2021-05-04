@@ -37,7 +37,7 @@ namespace AvatarLoger
 
         public override void OnApplicationStart()
         {
-            // create directory if it doesnt exist stgrndoeiughndughnudnhf
+            // create directory if it doesnt exist
             // and yes you can use this without doing Directory.Exists("AvatarLog")
             // because Directory.CreateDirectory("AvatarLog"); checks if it already exists 
             // "Creates all directories and subdirectories in the specified path unless they already exist." from https://docs.microsoft.com/en-us/dotnet/api/system.io.directory.createdirectory?view=net-5.0
@@ -51,7 +51,7 @@ namespace AvatarLoger
                 File.AppendAllText(PrivateAvatarFile, $"Made by KeafyIsHere{Environment.NewLine}");
 
             
-            // load all ids from the the text files taoiionsginodgndiognhdgdoihnrgtiorhng
+            // load all ids from the the text files
             foreach (var line in File.ReadAllLines(PublicAvatarFile))
                 if (line.Contains("Avatar ID"))
                     _avatarIDs += line.Replace("Avatar ID:", "");
