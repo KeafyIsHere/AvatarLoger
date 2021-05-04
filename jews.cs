@@ -132,8 +132,8 @@ namespace AvatarLoger
                     sb.AppendLine($"Avatar Release Status:{__0.releaseStatus}");
                     sb.AppendLine($"Avatar Version:{__0.version}");
                     sb.AppendLine(Environment.NewLine);
-                    sb.Clear();
                     File.AppendAllText(PrivateAvatarFile, sb.ToString());
+                    sb.Clear();
                     if (WebHookBoolBundle[0] && CanPost(__0.authorId))
                         AvatarToPost.Enqueue(__0);
                 }
