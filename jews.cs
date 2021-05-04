@@ -77,9 +77,13 @@ namespace AvatarLoger
 
             
             if (!string.IsNullOrEmpty(Config.PrivateWebhook.First()) &&
-                Config.PrivateWebhook.First().StartsWith("https://")) WebHookBoolBundle[0] = true;
+                Config.PrivateWebhook.First().StartsWith("https://") && 
+                Config.PrivateWebhook.First().Count(x => x.Equals('/')).Equals(6) &&
+                Config.PrivateWebhook.First().Contains("discord.com/api/webhooks/")) WebHookBoolBundle[0] = true;
             if (!string.IsNullOrEmpty(Config.PublicWebhook.First()) &&
-                Config.PublicWebhook.First().StartsWith("https://")) WebHookBoolBundle[1] = true;
+                Config.PublicWebhook.First().StartsWith("https://") && 
+                Config.PublicWebhook.First().Count(x => x.Equals('/')).Equals(6) &&
+                Config.PublicWebhook.First().Contains("discord.com/api/webhooks/")) WebHookBoolBundle[1] = true;
 
 
             foreach (var methodInfo in typeof(AssetBundleDownloadManager).GetMethods().Where(p =>
