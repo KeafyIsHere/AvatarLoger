@@ -23,7 +23,7 @@ namespace AvatarLoger
         private static string _avatarIDs = "";
         private static readonly Queue<ApiAvatar> AvatarToPost = new Queue<ApiAvatar>();
         private static readonly HttpClient WebHookClient = new HttpClient();
-        private static NekroExtensions.BoolPacking WebHookBoolBundle = new BoolPacking();
+        private static readonly BoolPacking WebHookBoolBundle = new BoolPacking();
 
         private static readonly DiscordColor PrivateColor = new DiscordColor("#FF0000");
         private static readonly DiscordColor PublicColor = new DiscordColor("#00FF00");
@@ -38,11 +38,14 @@ namespace AvatarLoger
         public override void OnApplicationStart()
         {
             Directory.CreateDirectory("AvatarLog");
+            
+            
             if (!File.Exists(PublicAvatarFile))
                 File.AppendAllText(PublicAvatarFile, $"Made by KeafyIsHere{Environment.NewLine}");
             if (!File.Exists(PrivateAvatarFile))
                 File.AppendAllText(PrivateAvatarFile, $"Made by KeafyIsHere{Environment.NewLine}");
 
+            
             foreach (var line in File.ReadAllLines(PublicAvatarFile))
                 if (line.Contains("Avatar ID"))
                     _avatarIDs += line.Replace("Avatar ID:", "");
@@ -50,6 +53,7 @@ namespace AvatarLoger
                 if (line.Contains("Avatar ID"))
                     _avatarIDs += line.Replace("Avatar ID:", "");
 
+            
             if (!File.Exists("AvatarLog\\Config.json"))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -71,6 +75,7 @@ namespace AvatarLoger
                 Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("AvatarLog\\Config.json"));
             }
 
+            
             if (!string.IsNullOrEmpty(Config.PrivateWebhook.First()) &&
                 Config.PrivateWebhook.First().StartsWith("https://")) WebHookBoolBundle[0] = true;
             if (!string.IsNullOrEmpty(Config.PublicWebhook.First()) &&
