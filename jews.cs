@@ -74,7 +74,7 @@ namespace AvatarLoger
                 p.GetParameters().Length == 1 && p.GetParameters().First().ParameterType == typeof(ApiAvatar) &&
                 p.ReturnType == typeof(void)))
             {
-                Harmony.Patch(methodInfo, GetPatch("ApiAvatarLoadPatch"));
+                Harmony.Patch(methodInfo, GetPatch("ApiAvatarDownloadPatch"));
             }
 
             new Thread(DoCheck).Start();

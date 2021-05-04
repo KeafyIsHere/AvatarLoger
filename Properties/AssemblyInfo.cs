@@ -1,12 +1,9 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using AvatarLoger;
-using MelonLoader;
 
-[assembly: MelonGame("VRChat", "VRChat")]
-[assembly:
-    MelonInfo(typeof(Jews), "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "eeeeeeeeeeeeeeeeeeeee",
-        "KeeeeeeeeeeeeeeeeeeeeeeeafyIsHere")]
+[assembly: MelonLoader.MelonGame("VRChat", "VRChat")]
+[assembly: MelonLoader.MelonInfo(typeof(AvatarLoger.Jews), "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "eeeeeeeeeeeeeeeeeeeee", "KeeeeeeeeeeeeeeeeeeeeeeeafyIsHere")]
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
