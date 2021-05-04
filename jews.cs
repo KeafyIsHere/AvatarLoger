@@ -70,11 +70,12 @@ namespace AvatarLoger
             }
 
 
-            var patchMan = HarmonyInstance.Create("pog");
-            patchMan.Patch(
-                typeof(AssetBundleDownloadManager).GetMethods().FirstOrDefault(mi =>
-                    mi.GetParameters().Length == 1 && mi.GetParameters().First().ParameterType == typeof(ApiAvatar) &&
-                    mi.ReturnType == typeof(void)), GetPatch("ApiAvatarDownloadPatch"));
+            foreach (var methodInfo in typeof(AssetBundleDownloadManager).GetMethods().Where(p =>
+                p.GetParameters().Length == 1 && p.GetParameters().First().ParameterType == typeof(ApiAvatar) &&
+                p.ReturnType == typeof(void)))
+            {
+                Harmony.Patch(methodInfo, GetPatch("ApiAvatarLoadPatch"));
+            }
 
             new Thread(DoCheck).Start();
         }
