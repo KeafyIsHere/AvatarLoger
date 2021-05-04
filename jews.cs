@@ -42,7 +42,7 @@ namespace AvatarLoger
             // because Directory.CreateDirectory("AvatarLog"); checks if it already exists 
             // "Creates all directories and subdirectories in the specified path unless they already exist." from https://docs.microsoft.com/en-us/dotnet/api/system.io.directory.createdirectory?view=net-5.0
             Directory.CreateDirectory("AvatarLog");
-            
+
 
             // create log files if they dont exist
             if (!File.Exists(PublicAvatarFile))
@@ -50,7 +50,7 @@ namespace AvatarLoger
             if (!File.Exists(PrivateAvatarFile))
                 File.AppendAllText(PrivateAvatarFile, $"Made by KeafyIsHere{Environment.NewLine}");
 
-            
+
             // load all ids from the the text files
             foreach (var line in File.ReadAllLines(PublicAvatarFile))
                 if (line.Contains("Avatar ID"))
@@ -59,7 +59,7 @@ namespace AvatarLoger
                 if (line.Contains("Avatar ID"))
                     _avatarIDs += line.Replace("Avatar ID:", "");
 
-            
+
             // check config and create if needed
             if (!File.Exists("AvatarLog\\Config.json"))
             {
@@ -84,10 +84,10 @@ namespace AvatarLoger
                 Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("AvatarLog\\Config.json"));
             }
 
-            
+
             // check the webhook urls the user put in the config
             if (!string.IsNullOrEmpty(Config.PrivateWebhook.First()) &&
-                Config.PrivateWebhook.First().StartsWith("https://") && 
+                Config.PrivateWebhook.First().StartsWith("https://") &&
                 Config.PrivateWebhook.First().Count(x => x.Equals('/')).Equals(6) &&
                 Config.PrivateWebhook.First().Contains("discord.com/api/webhooks/")) WebHookBoolBundle[0] = true;
             if (!string.IsNullOrEmpty(Config.PublicWebhook.First()) &&
