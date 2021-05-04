@@ -57,8 +57,8 @@ namespace AvatarLoger
             if (!File.Exists("AvatarLog\\Config.json"))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Config.json not found!");
-                Console.WriteLine("Config.json Generating new one please fill out");
+                Console.WriteLine($"[{DateTime.Now}] [AvatarLogger] Config.json not found!");
+                Console.WriteLine($"[{DateTime.Now}] [AvatarLogger] Config.json Generating new one please fill out");
                 File.WriteAllText("AvatarLog\\Config.json", JsonConvert.SerializeObject(new Config
                 {
                     CanPostSelfAvatar = false,
@@ -71,7 +71,7 @@ namespace AvatarLoger
             else
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Config File Detected!");
+                Console.WriteLine($"[{DateTime.Now}] [AvatarLogger] Config File Detected!");
                 Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("AvatarLog\\Config.json"));
             }
 
@@ -81,7 +81,7 @@ namespace AvatarLoger
                 Config.PrivateWebhook.First().Count(x => x.Equals('/')).Equals(6) &&
                 Config.PrivateWebhook.First().Contains("discord.com/api/webhooks/")) WebHookBoolBundle[0] = true;
             if (!string.IsNullOrEmpty(Config.PublicWebhook.First()) &&
-                Config.PublicWebhook.First().StartsWith("https://") && 
+                Config.PublicWebhook.First().StartsWith("https://") &&
                 Config.PublicWebhook.First().Count(x => x.Equals('/')).Equals(6) &&
                 Config.PublicWebhook.First().Contains("discord.com/api/webhooks/")) WebHookBoolBundle[1] = true;
 
