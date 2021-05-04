@@ -105,6 +105,7 @@ namespace AvatarLoger
                 {
                     _avatarIDs += __0.id;
                     var sb = new StringBuilder();
+                    sb.AppendLine($"Time detected:{DateTime.Now}");
                     sb.AppendLine($"Avatar ID:{__0.id}");
                     sb.AppendLine($"Avatar Name:{__0.name}");
                     sb.AppendLine($"Avatar Description:{__0.description}");
@@ -125,6 +126,7 @@ namespace AvatarLoger
                 {
                     _avatarIDs += __0.id;
                     var sb = new StringBuilder();
+                    sb.AppendLine($"Time detected:{DateTime.Now}");
                     sb.AppendLine($"Avatar ID:{__0.id}");
                     sb.AppendLine($"Avatar Name:{__0.name}");
                     sb.AppendLine($"Avatar Description:{__0.description}");
