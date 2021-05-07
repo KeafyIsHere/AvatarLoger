@@ -180,12 +180,12 @@ namespace AvatarLoger
                         var avatar = AvatarToPost.Peek();
                         AvatarToPost.Dequeue();
                         var discordEmbed = new DiscordEmbedBuilder();
-                        discordEmbed.WithAuthor(string.IsNullOrEmpty(Config.BotName) ? "Loggy boi" : Config.BotName,
+                        discordEmbed.WithAuthor(string.IsNullOrEmpty(Config.BotName) ? "Loggy" : Config.BotName,
                             string.IsNullOrEmpty(Config.AvatarURL)
-                                ? "https://i.imgur.com/No3R2yY.jpg"
+                                ? "https://i.imgur.com/a5245Lk.png"
                                 : Config.AvatarURL,
                             string.IsNullOrEmpty(Config.AvatarURL)
-                                ? "https://i.imgur.com/No3R2yY.jpg"
+                                ? "https://i.imgur.com/a5245Lk.png"
                                 : Config.AvatarURL);
                         discordEmbed.WithImageUrl(avatar.thumbnailImageUrl);
                         discordEmbed.WithColor(avatar.releaseStatus.Equals("public") ? PublicColor : PrivateColor);
@@ -210,14 +210,14 @@ namespace AvatarLoger
                         discordEmbed.AddField("Avatar Thumbnail Image URL:", avatar.thumbnailImageUrl);
                         discordEmbed.WithFooter("Made by KeafyIsHere",
                             string.IsNullOrEmpty(Config.AvatarURL)
-                                ? "https://i.imgur.com/No3R2yY.jpg"
+                                ? "https://i.imgur.com/a5245Lk.png"
                                 : Config.AvatarURL);
                         var restWebhookPayload = new RestWebhookExecutePayload
                         {
                             Content = "",
-                            Username = string.IsNullOrEmpty(Config.BotName) ? "Loggy boi" : Config.BotName,
+                            Username = string.IsNullOrEmpty(Config.BotName) ? "Loggy" : Config.BotName,
                             AvatarUrl = string.IsNullOrEmpty(Config.AvatarURL)
-                                ? "https://i.imgur.com/No3R2yY.jpg"
+                                ? "https://i.imgur.com/a5245Lk.png"
                                 : Config.AvatarURL,
                             IsTTS = false,
                             Embeds = new List<DiscordEmbed> {discordEmbed.Build()}
