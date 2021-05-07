@@ -1,7 +1,3 @@
-# Discord
-
-[![Discord](https://canary.discord.com/api/guilds/839188894402609163/widget.png?style=banner4)](https://discord.gg/nuYmcGj2WV)
-
 # AvatarLoger
 Log Avatar to file and Webhook
 
